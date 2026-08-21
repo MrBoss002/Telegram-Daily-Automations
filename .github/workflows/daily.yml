@@ -6,6 +6,7 @@ on:
     - cron: '0 8 * * *'   # 8:00 AM UTC - Movie Spotlight
     - cron: '0 12 * * *'  # 12:00 PM UTC - Trending Game
     - cron: '0 16 * * *'  # 4:00 PM UTC - Crypto Overview
+    - cron: '0 20 * * *'  # 8:00 PM UTC - Sports Highlights
   workflow_dispatch:
 
 jobs:
@@ -48,3 +49,10 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: python post_crypto.py
+
+      # 8:00 PM UTC - Sports Update
+      - name: Post Sports Update
+        if: github.event.schedule == '0 20 * * *' || github.event_name == 'workflow_dispatch'
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: python post_sports.py
