@@ -1,23 +1,50 @@
-name: All-In-One Telegram Daily Automation
+name: Scheduled Telegram Automations
 
 on:
   schedule:
-    - cron: '0 8 * * *' # Runs daily at 8:00 AM UTC
+    - cron: '0 4 * * *'   # 4:00 AM UTC - Forex Rates
+    - cron: '0 8 * * *'   # 8:00 AM UTC - Movie Spotlight
+    - cron: '0 12 * * *'  # 12:00 PM UTC - Trending Game
+    - cron: '0 16 * * *'  # 4:00 PM UTC - Crypto Overview
   workflow_dispatch:
 
 jobs:
-  run-daily-digest:
+  run-scheduled-automation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      - name: Install dependencies
+      - name: Install Dependencies
         run: pip install requests
-      - name: Execute Daily Master Script
+      
+      # 4:00 AM UTC - Forex
+      - name: Post Forex
+        if: github.event.schedule == '0 4 * * *' || github.event_name == 'workflow_dispatch'
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: python post_forex.py
+
+      # 8:00 AM UTC - Movie Spotlight
+      - name: Post Movie Spotlight
+        if: github.event.schedule == '0 8 * * *' || github.event_name == 'workflow_dispatch'
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: python post_movie.py
+
+      # 12:00 PM UTC - Gaming Update
+      - name: Post Game Update
+        if: github.event.schedule == '0 12 * * *' || github.event_name == 'workflow_dispatch'
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           RAWG_API_KEY: ${{ secrets.RAWG_API_KEY }}
-        run: python daily_master.py
+        run: python post_game.py
+
+      # 4:00 PM UTC - Crypto Update
+      - name: Post Crypto Update
+        if: github.event.schedule == '0 16 * * *' || github.event_name == 'workflow_dispatch'
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: python post_crypto.py
