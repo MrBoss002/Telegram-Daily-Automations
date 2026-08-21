@@ -1,0 +1,23 @@
+name: All-In-One Telegram Daily Automation
+
+on:
+  schedule:
+    - cron: '0 8 * * *' # Runs daily at 8:00 AM UTC
+  workflow_dispatch:
+
+jobs:
+  run-daily-digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: pip install requests
+      - name: Execute Daily Master Script
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          RAWG_API_KEY: ${{ secrets.RAWG_API_KEY }}
+        run: python daily_master.py
