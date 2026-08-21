@@ -28,11 +28,13 @@ Want to see this project in action? Check out the live automated posts delivered
 
 This repository contains 5 independent automation scripts, each scheduled to run at specific times throughout the day:
 
-* **💵 Forex Rates (`post_forex.py`):** Daily USD conversion rates to INR and AED (Dirham).
-* **🎬 Movie Spotlight (`post_movie.py`):** The #1 trending movie of the day with its poster, rating, and plot summary (Powered by TMDb).
-* **🎮 Gaming Update (`post_game.py`):** Top trending video game with its rating and background artwork (Powered by RAWG).
-* **🪙 Crypto Market (`post_crypto.py`):** Live prices for BTC, ETH, and SOL in USD, INR, and AED.
-* **⚽ Sports Highlights (`post_sports.py`):** Latest match updates and league information (Powered by TheSportsDB).
+| Feature | Script | Description | Powered By |
+| :--- | :--- | :--- | :--- |
+| **💵 Forex Rates** | `post_forex.py` | Daily USD conversion rates to INR and AED (Dirham) | Open Exchange Rates |
+| **🎬 Movie Spotlight** | `post_movie.py` | Top trending movie of the day with poster, rating, and summary | TMDb |
+| **🎮 Gaming Update** | `post_game.py` | Top trending video game with its rating and artwork | RAWG |
+| **🪙 Crypto Market** | `post_crypto.py` | Live prices for BTC, ETH, and SOL in USD, INR, and AED | CoinGecko |
+| **⚽ Sports Highlights** | `post_sports.py` | Latest match updates, scores, and league information | TheSportsDB |
 
 ---
 
